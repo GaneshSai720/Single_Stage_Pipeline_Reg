@@ -1,4 +1,6 @@
-module single_stage_pipeline_reg #(parameter int WIDTH = 32)(
+module single_stage_pipeline_reg #(
+    parameter int WIDTH = 32
+)(
     input  logic              clk,
     input  logic              resetn,
     
@@ -24,9 +26,11 @@ module single_stage_pipeline_reg #(parameter int WIDTH = 32)(
       data_reg   <= '0;
     end 
     else begin
-      if (in_ready & in_valid) begin
+      if (in_ready) begin
         data_valid <= in_valid;
-        data_reg <= in_data;
+        if (in_valid) begin
+          data_reg <= in_data;
+        end
       end
     end
   end
